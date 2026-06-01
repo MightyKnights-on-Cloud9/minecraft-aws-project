@@ -1,0 +1,57 @@
+name: Deploy Imported Minecraft Server
+
+on: 
+  push:
+    branches:
+      - main
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+    deploy-infrastructure:
+      runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code repository
+        uses: actions/checkout@v4
+      
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::466385006262:role/github-actions-terraform-executor
+          aws-region: ca-central-1
+      
+      - name: Install Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: "1.8.0"
+      
+      - name: Terraform Initialize
+        run: terraform init
+
+      - name: Terraform Apply
+        run: terraform apply -auto-approve
+        env:
+          TF_VAR_ssh_home_ip: ${{ secrets.HOME_IP }}
+          TF_VAR_public_key_content: ${{ secrets.PUBLIC_SSH_KEY }}
+
+      - name: Copy Docker Config to EC2 via SCP
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.EC2_PUBLIC_IP }}
+          username: ubuntu
+          key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+          source: "docker-compose.yml"
+          target: "/home/ubuntu/"
+
+      - name: Execute Docker Compose via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{secrets.EC2_PUBLIC_IP}}
+          username: ubuntu
+          key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu
+            sudo docker compose up -d

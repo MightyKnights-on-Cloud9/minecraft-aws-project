@@ -1,0 +1,23 @@
+# Ignore local Terraform working dependency binaries
+.terraform/
+
+# Ignore local execution state records (once generated)
+*.tfstate
+*.tfstate.backup
+
+# Ignore local browser login token cache profiles
+.aws/
+
+# Ignore potential local system/OS footprint artifacts
+.DS_Store
+Thumbs.db
+
+# CRITICAL SECURITY FILTER: Block all variable value files
+*.tfvars
+*.tfvars.json
+
+#SSH key-pair
+*.pem
+
+#Sensitive Private Keys
+my-minecraft-key*
