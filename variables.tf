@@ -34,3 +34,8 @@ variable "is_pipeline" {
   default     = false
   description = "Set to true when running inside CI/CD to bypass local profiles."
 }
+
+variable "aws_account_id" {
+  type        = string
+  description = "AWS Account ID."
+}
