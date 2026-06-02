@@ -10,10 +10,10 @@ permissions:
   contents: read
 
 jobs:
-    deploy-infrastructure:
+  deploy-infrastructure:
       runs-on: ubuntu-latest
     
-    steps:
+      steps:
       - name: Checkout code repository
         uses: actions/checkout@v4
       
