@@ -1,0 +1,32 @@
+name: Destroy Infrastructure
+
+on:
+  workflow_dispatch: # Adds the manual "Run Workflow" button in GitHub
+
+# Crucial for OIDC: Allows the runner to request a temporary JWT token from GitHub
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform-destroy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: hashicorp/setup-terraform@v3
+
+      # Secure OIDC Authentication (No static keys!)
+      - name: Configure AWS Credentials via OIDC
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: arn:aws:iam::${{ secrets.AWS_ACCOUNT_ID }}:role/github-actions-terraform-executor
+          aws-region: ca-central-1 # Match your deployment region
+
+      - name: Terraform Destroy
+        run: |
+          terraform init
+          terraform destroy -auto-approve
+        env:
+          TF_VAR_ssh_home_ip: ${{ secrets.HOME_IP }}
+          TF_VAR_public_key_content: ${{ secrets.PUBLIC_SSH_KEY }}
