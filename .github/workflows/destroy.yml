@@ -11,7 +11,7 @@ permissions:
 jobs:
   terraform-destroy:
     runs-on: ubuntu-latest
-    
+
     steps:
       - uses: actions/checkout@v4
 
@@ -29,5 +29,6 @@ jobs:
           terraform init
           terraform destroy -auto-approve
         env:
+          TF_VAR_is_pipeline: true
           TF_VAR_ssh_home_ip: ${{ secrets.HOME_IP }}
           TF_VAR_public_key_content: ${{ secrets.PUBLIC_SSH_KEY }}

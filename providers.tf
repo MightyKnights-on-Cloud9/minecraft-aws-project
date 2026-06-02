@@ -11,5 +11,5 @@ terraform {
 
 provider "aws" {
   region  = "ca-central-1"
-  profile = "terraform-local"
+  profile = var.is_pipeline ? null : "terraform-local"
 }
