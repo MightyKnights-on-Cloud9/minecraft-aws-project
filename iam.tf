@@ -46,11 +46,11 @@ resource "aws_iam_role_policy_attachment" "minecraft_backup_policy_attachment" {
 }
 
 # 1. Establish the OpenID Connect Provider connection with GitHub
-resource "aws_iam_openid_connect_provider" "github" {
-  url             = "https://token.actions.githubusercontent.com"
-  client_id_list  = ["sts.amazonaws.com"]
-  thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1"] # GitHub's root cert thumbprint
-}
+#resource "aws_iam_openid_connect_provider" "github" {
+#  url             = "https://token.actions.githubusercontent.com"
+#  client_id_list  = ["sts.amazonaws.com"]
+#  thumbprint_list = ["6938fd4d98bab03faadb97b34396831e3780aea1"] # GitHub's root cert thumbprint
+#}
 
 # 2. Build the trust policy restricting access to your specific repository
 data "aws_iam_policy_document" "github_allow" {
