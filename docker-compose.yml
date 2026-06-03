@@ -1,0 +1,18 @@
+services:
+  minecraft:
+    image: itzg/minecraft-server
+    container_name: Minecraft-Docker-Server
+    ports:
+      - "25565:25565/tcp"
+    environment:
+      EULA: "TRUE"
+      MEMORY: "4G"
+      DIFFICULTY: "hard"
+      LEVEL: "world"
+      RCON_ENABLED: "true"
+      RCON_PASSWORD: "${RCON_PASSWORD}"
+      MANAGEMENT_SERVER_SECRET: "${MANAGEMENT_SERVER_SECRET}"
+      motd: "Imported Minecraft server world in AWS."
+    volumes:
+      - /home/ubuntu/minecraft-docker-server/data:/data
+    restart: unless-stopped
