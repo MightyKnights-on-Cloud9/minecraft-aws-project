@@ -16,15 +16,15 @@ resource "aws_vpc_security_group_ingress_rule" "minecraft_game" {
   description = "Allow Minecraft players to connect"
 }
 
-# 3. Ingress Rule: SSH Access (Restricted to your Home IP)
+# 3. Ingress Rule: SSH Access
 resource "aws_vpc_security_group_ingress_rule" "minecraft_ssh" {
   security_group_id = aws_security_group.minecraft_sg.id
 
   from_port   = 22
   to_port     = 22
   ip_protocol = "tcp"
-  cidr_ipv4   = var.ssh_home_ip
-  description = "Allow SSH from my home IP"
+  cidr_ipv4   = ["0.0.0.0/0"]
+  description = "Allow SSH"
 }
 
 # 4. Egress Rule: Allow the server to download updates/packages
