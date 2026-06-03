@@ -21,3 +21,8 @@ Thumbs.db
 
 #Sensitive Private Keys
 my-minecraft-key*
+
+#Ignore Minecraft-specific sensitive files
+server.properties
+data/
+*.tar.gz
