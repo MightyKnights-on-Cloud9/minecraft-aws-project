@@ -84,7 +84,7 @@ data "aws_iam_policy_document" "github_allow" {
 #  assume_role_policy = data.aws_iam_policy_document.github_allow.json
 #}
 
-# 4. Output the Role ARN so you can paste it into your GitHub workflow
-output "github_actions_role_arn" {
-  value = aws_iam_role.github_actions_role.arn
-}
+## 4. Output the Role ARN so you can paste it into your GitHub workflow
+#output "github_actions_role_arn" {
+#  value = aws_iam_role.github_actions_role.arn
+#}
