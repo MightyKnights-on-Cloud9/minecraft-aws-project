@@ -45,7 +45,7 @@ jobs:
           host: ${{ secrets.EC2_PUBLIC_IP }}
           username: ubuntu
           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
-          source: "docker-compose.yml,data/" 
+          source: "docker-compose.yml" 
           target: "/home/ubuntu/minecraft-docker-server"
 
       - name: Execute Docker Compose via SSH
@@ -55,5 +55,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
           script: |
-            cd /home/ubuntu
+            cd /home/ubuntu/minecraft-docker-server
+            RCON_PASSWORD="${{ secrets.RCON_PASSWORD }}" \
+            MANAGEMENT_SERVER_SECRET="${{ secrets.MANAGEMENT_SERVER_SECRET }}" \
             sudo docker compose up -d
