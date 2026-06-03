@@ -78,11 +78,11 @@ data "aws_iam_policy_document" "github_allow" {
   }
 }
 
-# 3. Create the deployment IAM Role
-resource "aws_iam_role" "github_actions_role" {
-  name               = "github-actions-terraform-executor"
-  assume_role_policy = data.aws_iam_policy_document.github_allow.json
-}
+## 3. Create the deployment IAM Role
+#resource "aws_iam_role" "github_actions_role" {
+#  name               = "github-actions-terraform-executor"
+#  assume_role_policy = data.aws_iam_policy_document.github_allow.json
+#}
 
 # 4. Output the Role ARN so you can paste it into your GitHub workflow
 output "github_actions_role_arn" {
