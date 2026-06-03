@@ -39,7 +39,7 @@ jobs:
           TF_VAR_ssh_home_ip: ${{ secrets.HOME_IP }}
           TF_VAR_public_key_content: ${{ secrets.PUBLIC_SSH_KEY }}
 
-      name: Debug Workspace Files
+      - name: Debug Workspace Files
         run: |
           echo "Current working directory:"
           pwd
