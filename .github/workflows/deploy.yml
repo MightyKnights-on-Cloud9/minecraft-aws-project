@@ -39,6 +39,11 @@ jobs:
           TF_VAR_ssh_home_ip: ${{ secrets.HOME_IP }}
           TF_VAR_public_key_content: ${{ secrets.PUBLIC_SSH_KEY }}
 
+      - name: Extract Terraform Outputs
+        id: terraform_outputs
+        run: |
+          echo "minecraft_server_public_ip=$(terraform output -raw minecraft_server_public_ip)" >> $GITHUB_OUTPUT
+
       - name: Debug Workspace Files
         run: |
           echo "Current working directory:"
@@ -49,7 +54,7 @@ jobs:
       - name: Copy Docker Config to EC2 via SCP
         uses: appleboy/scp-action@v1
         with:
-          host: ${{ secrets.EC2_PUBLIC_IP }}
+          host: ${{ steps.terraform_outputs.outputs.minecraft_server_public_ip }}
           username: ubuntu
           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
           source: "docker-compose.yml" 
@@ -58,7 +63,7 @@ jobs:
       - name: Execute Docker Compose via SSH
         uses: appleboy/ssh-action@v1
         with:
-          host: ${{secrets.EC2_PUBLIC_IP}}
+          host: ${{ steps.terraform_outputs.outputs.minecraft_server_public_ip }}
           username: ubuntu
           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
           script: |
