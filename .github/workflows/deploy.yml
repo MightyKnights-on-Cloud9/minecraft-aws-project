@@ -37,7 +37,9 @@ jobs:
           TF_VAR_is_pipeline: true
           TF_VAR_aws_account_id: ${{ secrets.AWS_ACCOUNT_ID }}
           TF_VAR_ssh_home_ip: ${{ secrets.HOME_IP }}
-          TF_VAR_public_key_content: ${{ secrets.PUBLIC_SSH_KEY }}
+
+      - name: Wait for Ubuntu OS to Boot SSH
+        run: sleep 30
 
       - name: Extract Terraform Outputs
         id: terraform_outputs
