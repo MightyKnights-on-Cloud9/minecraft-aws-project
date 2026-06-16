@@ -21,6 +21,7 @@ Thumbs.db
 
 #Sensitive Private Keys
 my-minecraft-key*
+minecraft-key*
 
 #Ignore Minecraft-specific sensitive files
 server.properties
