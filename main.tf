@@ -29,7 +29,7 @@ resource "aws_instance" "minecraft_server" {
               #!/bin/bash
               export DEBIAN_FRONTEND=noninteractive
               apt-get update -y
-              apt-get install -y -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold" docker.io docker-compose
+              apt-get install -yp docker.io docker-compose
               systemctl start docker
               systemctl enable docker
               usermod -a -G docker ubuntu
