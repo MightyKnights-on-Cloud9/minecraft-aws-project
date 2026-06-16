@@ -28,7 +28,7 @@ resource "aws_instance" "minecraft_server" {
   user_data = <<-EOF
               #!/bin/bash
               apt-get update -y
-              apt-get install docker.io docker-compose-plugin -y
+              apt-get install docker.io docker-compose -y
               systemctl start docker
               systemctl enable docker
               usermod -a -G docker ubuntu
