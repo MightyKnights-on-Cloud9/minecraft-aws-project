@@ -19,6 +19,7 @@ resource "aws_instance" "minecraft_server" {
   subnet_id              = aws_subnet.minecraft_subnet.id
   vpc_security_group_ids = [aws_security_group.minecraft_sg.id]
   iam_instance_profile   = aws_iam_instance_profile.minecraft_instance_profile.name
+  key_name = aws_key_pair.deployer.key_name
 
   tags = {
     Name = "minecraft-core-server"
