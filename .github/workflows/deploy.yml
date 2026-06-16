@@ -69,9 +69,12 @@ jobs:
           username: ubuntu
           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
           script: |
-            echo "Waiting for cloud-init to finish installing Docker..."
-            while [ ! -x /usr/bin/docker-compose ] && [ ! -x /usr/bin/docker ]; do sleep 2; done
+            while ! command -v docker &> /dev/null || ! command -v docker-compose &> /dev/null; do 
+              echo "Still waiting for Docker binaries to initialize..."
+              sleep 5 
+            done
             
+            echo "Docker is fully installed! Proceeding with container deployment..."
             cd /home/ubuntu/minecraft-docker-server
             RCON_PASSWORD="${{ secrets.RCON_PASSWORD }}" \
             MANAGEMENT_SERVER_SECRET="${{ secrets.MANAGEMENT_SERVER_SECRET }}" \
