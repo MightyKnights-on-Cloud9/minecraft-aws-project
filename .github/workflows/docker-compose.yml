@@ -14,5 +14,5 @@ services:
       MANAGEMENT_SERVER_SECRET: "${MANAGEMENT_SERVER_SECRET}"
       motd: "Imported Minecraft server world in AWS."
     volumes:
-      - /home/ubuntu/minecraft-docker-server/data:/data
+      - ./minecraft-docker-server/data:/data
     restart: unless-stopped
