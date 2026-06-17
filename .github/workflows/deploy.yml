@@ -69,10 +69,9 @@ jobs:
           username: ubuntu
           key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
           script: |
-            while [ ! -f /usr/bin/docker ] || [ ! -f /usr/bin/docker-compose ]; do
-              echo "Waiting for apt-get to finish installing Docker packages..."
-              sudo tail -n 3 /var/log/cloud-init-output.log || true
-              sleep 10
+            while ! command -v docker &> /dev/null || ! command -v docker-compose &> /dev/null; do 
+              echo "Still waiting for Docker binaries to initialize..."
+              sleep 5 
             done
             
             echo "Docker is fully installed! Proceeding with container deployment..."
