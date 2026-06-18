@@ -27,6 +27,17 @@ resource "aws_vpc_security_group_ingress_rule" "minecraft_ssh" {
   description = "Allow SSH"
 }
 
+# Uncomment if running a local Grafana instance on Port 3000
+#resource "aws_vpc_security_group_ingress_rule" "grafana_sg" {
+#  security_group_id = aws_security_group.minecraft_sg.id
+#
+#  from_port = 3000
+#  to_port = 3000
+#  ip_protocol = "tcp"
+#  cidr_ipv4   = "0.0.0.0/0"
+#  description = "Allow Grafana Security Admin access"
+#}
+
 # 4. Egress Rule: Allow the server to download updates/packages
 resource "aws_vpc_security_group_egress_rule" "allow_all_outbound" {
   security_group_id = aws_security_group.minecraft_sg.id

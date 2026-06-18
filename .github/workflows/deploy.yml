@@ -79,6 +79,22 @@ jobs:
             RCON_PASSWORD="${{ secrets.RCON_PASSWORD }}" \
             MANAGEMENT_SERVER_SECRET="${{ secrets.MANAGEMENT_SERVER_SECRET }}" \
             sudo docker-compose up -d
+      
+      - name: Deploy Architecture via SSH
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ steps.terraform_outputs.outputs.minecraft_server_public_ip }}
+          username: ubuntu
+          key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+          envs: GRAFANA_SECURITY_SECRET,GRAFANA_CLOUD_URL,GRAFANA_CLOUD_USER,GRAFANA_CLOUD_TOKEN
+          script: |
+            cd /home/ubuntu/minecraft-docker-server
+            export GRAFANA_SECURITY_SECRET="${{ secrets.GRAFANA_SECURITY_SECRET }}"
+            export GRAFANA_CLOUD_URL="${{ secrets.GRAFANA_CLOUD_URL }}"
+            export GRAFANA_CLOUD_USER="${{ secrets.GRAFANA_CLOUD_USER }}"
+            export GRAFANA_CLOUD_TOKEN="${{ secrets.GRAFANA_CLOUD_TOKEN }}"
+            
+            sudo -E docker compose up -d
 
       - name: Server Deployment Summary
         run: |

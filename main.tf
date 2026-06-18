@@ -33,5 +33,10 @@ resource "aws_instance" "minecraft_server" {
               systemctl start docker
               systemctl enable docker
               usermod -a -G docker ubuntu
+              fallocate -l 2G /swapfile
+              chmod 600 /swapfile
+              mkswap /swapfile
+              swapon /swapfile
+              echo '/swapfile none swap sw 0 0' >> /etc/fstab
               EOF
 }

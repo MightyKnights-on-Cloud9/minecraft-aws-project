@@ -20,7 +20,7 @@ variable "ssh_home_ip" {
 variable "instance_type" {
   description = "AWS instance type"
   type        = string
-  default     = "t3.medium"
+  default     = "t3.micro"
 }
 
 variable "public_key_content" {
