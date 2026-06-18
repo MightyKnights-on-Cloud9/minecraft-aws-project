@@ -62,6 +62,15 @@ jobs:
           source: "docker-compose.yml" 
           target: "/home/ubuntu/minecraft-docker-server"
 
+      - name: Copy Prometheus Files to EC2 via SCP
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ steps.terraform_outputs.outputs.minecraft_server_public_ip }}
+          username: ubuntu
+          key: ${{ secrets.AWS_SSH_PRIVATE_KEY }}
+          source: "monitoring/prometheus.yml" 
+          target: "/home/ubuntu/minecraft-docker-server"
+
       - name: Execute Docker Compose via SSH
         uses: appleboy/ssh-action@v1
         with:
