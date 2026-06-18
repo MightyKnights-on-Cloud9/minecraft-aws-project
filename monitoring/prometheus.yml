@@ -12,7 +12,7 @@ scrape_configs:
       - targets: ['node-exporter:9100']
 
 remote_write:
-  - url: "${GRAFANA_URL_ENDPOINT}"
+  - url: "${GRAFANA_CLOUD_URL}"
     basic_auth:
       username: "${GRAFANA_CLOUD_USERNAME}"
       password: "${GRAFANA_CLOUD_TOKEN}"
