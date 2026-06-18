@@ -14,5 +14,5 @@ scrape_configs:
 remote_write:
   - url: "${GRAFANA_CLOUD_URL}"
     basic_auth:
-      username: "${GRAFANA_CLOUD_USERNAME}"
+      username: "${GRAFANA_CLOUD_USER}"
       password: "${GRAFANA_CLOUD_TOKEN}"
