@@ -17,7 +17,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@v3
 
-      # Secure OIDC Authentication (No static keys!)
+      # Secure OIDC Authentication
       - name: Configure AWS Credentials via OIDC
         uses: aws-actions/configure-aws-credentials@v4
         with:

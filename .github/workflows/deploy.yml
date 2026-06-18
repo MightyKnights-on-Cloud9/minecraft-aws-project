@@ -103,7 +103,7 @@ jobs:
             export GRAFANA_CLOUD_USER="${{ secrets.GRAFANA_CLOUD_USER }}"
             export GRAFANA_CLOUD_TOKEN="${{ secrets.GRAFANA_CLOUD_TOKEN }}"
             
-            sudo -E docker compose up -d
+            sudo -E docker-compose up -d
 
       - name: Server Deployment Summary
         run: |
