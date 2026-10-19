@@ -28,7 +28,7 @@ resource "aws_vpc_security_group_ingress_rule" "minecraft_ssh" {
 }
 
 # Uncomment if running a local Grafana instance on Port 3000
-#resource "aws_vpc_security_group_ingress_rule" "grafana_sg" {
+#resource "aws_vpc  _security_group_ingress_rule" "grafana_sg" {
 #  security_group_id = aws_security_group.minecraft_sg.id
 #
 #  from_port = 3000

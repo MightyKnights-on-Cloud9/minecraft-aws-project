@@ -99,7 +99,7 @@ jobs:
             sudo docker-compose up -d
       
       # For local Grafana container deployments, add GRAFANA_SECURITY_SECRET to envs: and the line: "export GRAFANA_SECURITY_SECRET="${{ secrets.GRAFANA_SECURITY_SECRET }}"" to script:
-      - name: Deploy Architecture via SSH
+      - name: Deploy Prometheus via SSH
         uses: appleboy/ssh-action@v1
         with:
           host: ${{ steps.terraform_outputs.outputs.minecraft_server_public_ip }}
